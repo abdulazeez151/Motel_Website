@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motel Guest Registration System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-card {
+                width: 100%;
+                height: 100%;
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+            .form-section {
+                page-break-inside: avoid;
+            }
+        }
+        .form-input {
+            border-bottom: 1px solid #000;
+            min-height: 1.5rem;
+        }
+        .days-checkbox {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 1px solid #000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.25rem;
+        }
+        .days-checkbox.checked {
+            background-color: #000;
+            color: white;
+            position: relative;
+        }
+        .days-checkbox.checked::after {
+            content: "✓";
+            position: absolute;
+            font-size: 0.8rem;
+        }
+        .notice-box {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            border-left: 2px dashed #000;
+            border-right: 2px dashed #000;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 p-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-2xl font-bold text-center mb-6 no-print">Motel Guest Registration System</h1>
+        
+        <div class="bg-white rounded-xl shadow-xl p-6 print-card border border-gray-200">
+            <form id="registrationForm" class="flex flex-col md:flex-row gap-4">
+                <!-- Left Section - Personal Info -->
+                <div class="form-section flex-1 border-r border-gray-300 pr-4">
+                    <h2 class="text-lg font-semibold mb-4 border-b border-black">Guest Information</h2>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Name/Company</label>
+                        <input type="text" name="name" class="w-full form-input" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Address</label>
+                        <input type="text" name="address" class="w-full form-input">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">City</label>
+                            <input type="text" name="city" class="w-full form-input">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">State</label>
+                            <input type="text" name="state" class="w-full form-input">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">ZIP Code</label>
+                        <input type="text" name="zip" class="w-full form-input">
+                    </div>
+                </div>
+                
+                <!-- Center Notice -->
+                <div class="notice-box flex items-center justify-center px-2 py-4 mx-4 hidden md:flex">
+                    <div class="text-xs font-bold text-center">
+                        NOTICE TO GUESTS<br><br>
+                        Under penalty of law, this guest registration card must be signed by the person registering.<br><br>
+                        Rates subject to change without notice.<br><br>
+                        Checkout time is 11:00 AM.
+                    </div>
+                </div>
+                
+                <!-- Middle Section - Contact & Vehicle -->
+                <div class="form-section flex-1 border-r border-gray-300 pr-4">
+                    <h2 class="text-lg font-semibold mb-4 border-b border-black">Contact & Vehicle</h2>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Phone</label>
+                        <input type="tel" name="phone" class="w-full form-input">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Email</label>
+                        <input type="email" name="email" class="w-full form-input">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">License Plate No.</label>
+                        <input type="text" name="licensePlate" class="w-full form-input">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Make of Car</label>
+                            <input type="text" name="carMake" class="w-full form-input">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Car State</label>
+                            <input type="text" name="carState" class="w-full form-input">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">No. in Party</label>
+                        <input type="number" name="partySize" class="w-full form-input" min="1">
+                    </div>
+                </div>
+                
+                <!-- Right Section - Payment & Stay -->
+                <div class="form-section flex-1">
+                    <h2 class="text-lg font-semibold mb-4 border-b border-black">Stay Details</h2>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Date</label>
+                        <input type="date" name="date" class="w-full form-input" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Rate ($)</label>
+                            <input type="number" name="rate" class="w-full form-input" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Tax ($)</label>
+                            <input type="number" name="tax" class="w-full form-input" step="0.01" min="0">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Total ($)</label>
+                        <input type="number" name="total" class="w-full form-input" step="0.01" min="0" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Amount Paid ($)</label>
+                        <input type="number" name="amountPaid" class="w-full form-input" step="0.01" min="0" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Guest Signature</label>
+                        <input type="text" name="signature" class="w-full form-input" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Room Name/No.</label>
+                        <input type="text" name="room" class="w-full form-input" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Days Occupied</label>
+                        <div class="flex items-center mt-2">
+                            <span class="text-xs mr-2">S</span>
+                            <div class="days-checkbox" data-day="sunday" onclick="toggleDay(this)"></div>
+                            <span class="text-xs mr-2">M</span>
+                            <div class="days-checkbox" data-day="monday" onclick="toggleDay(this)"></div>
+                            <span class="text-xs mr-2">T</span>
+                            <div class="days-checkbox" data-day="tuesday" onclick="toggleDay(this)"></div>
+                            <span class="text-xs mr-2">W</span>
+                            <div class="days-checkbox" data-day="wednesday" onclick="toggleDay(this)"></div>
+                            <span class="text-xs mr-2">T</span>
+                            <div class="days-checkbox" data-day="thursday" onclick="toggleDay(this)"></div>
+                            <span class="text-xs mr-2">F</span>
+                            <div class="days-checkbox" data-day="friday" onclick="toggleDay(this)"></div>
+                            <span class="text-xs mr-2">S</span>
+                            <div class="days-checkbox" data-day="saturday" onclick="toggleDay(this)"></div>
+                        </div>
+                        <input type="hidden" name="daysOccupied" id="daysOccupied">
+                    </div>
+                </div>
+            </form>
+            
+            <div class="mt-6 flex justify-end gap-4 no-print">
+                <button onclick="document.getElementById('registrationForm').reset();" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-200 transition-all">Clear Form</button>
+                <button onclick="submitForm()" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:shadow-md transition-all transform hover:-translate-y-0.5">Submit & Print</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDay(element) {
+            element.classList.toggle('checked');
+            updateDaysOccupied();
+        }
+        
+        function updateDaysOccupied() {
+            const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+            const selectedDays = [];
+            
+            days.forEach(day => {
+                const checkbox = document.querySelector(`.days-checkbox[data-day="${day}"]`);
+                if (checkbox.classList.contains('checked')) {
+                    selectedDays.push(day);
+                }
+            });
+            
+            document.getElementById('daysOccupied').value = selectedDays.join(',');
+        }
+        
+        function submitForm() {
+            const form = document.getElementById('registrationForm');
+            const requiredFields = ['name', 'date', 'room', 'rate', 'tax', 'total', 'amountPaid'];
+            let isValid = true;
+            let missingFields = [];
+
+            // Check required fields
+            requiredFields.forEach(field => {
+                const input = form.elements[field];
+                if (!input.value.trim()) {
+                    isValid = false;
+                    missingFields.push(input.previousElementSibling.textContent.trim());
+                }
+            });
+
+            if (!isValid) {
+                alert(`Please fill in the following required fields:\n\n• ${missingFields.join('\n• ')}`);
+                return;
+            }
+
+            const formData = new FormData(form);
+            const data = {};
+            
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // In a real implementation, this would send to a server
+            console.log('Form data:', data);
+            
+            // For demo purposes, we'll just show the print preview
+            showPrintPreview(data);
+            
+            // In a real implementation, you would:
+            // 1. Save to CSV via server
+            // 2. Then show print preview
+        }
+        
+        function showPrintPreview(data) {
+            const printWindow = window.open('', '_blank');
+            
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Motel Registration Card</title>
+                    <style>
+                        @page {
+                            size: landscape;
+                            margin: 0;
+                        }
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 0.5in;
+                        }
+                        .registration-card {
+                            display: flex;
+                            width: 100%;
+                            max-width: 8.5in;
+                            margin: 0 auto;
+                            border: 1px solid #000;
+                            padding: 20px;
+                        }
+                        .form-section {
+                            flex: 1;
+                            padding: 0 10px;
+                        }
+                        .notice-box {
+                            writing-mode: vertical-rl;
+                            transform: rotate(180deg);
+                            border-left: 2px dashed #000;
+                            border-right: 2px dashed #000;
+                            padding: 0 10px;
+                            margin: 0 20px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .form-input {
+                            border-bottom: 1px solid #000;
+                            min-height: 1.5rem;
+                            margin-bottom: 15px;
+                            display: block;
+                            width: 100%;
+                        }
+                        .days-container {
+                            display: flex;
+                            margin-top: 10px;
+                        }
+                        .day-box {
+                            width: 20px;
+                            height: 20px;
+                            border: 1px solid #000;
+                            margin-right: 5px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .day-box.checked {
+                            background-color: #000;
+                            color: white;
+                        }
+                        h2 {
+                            font-size: 16px;
+                            border-bottom: 1px solid #000;
+                            margin-bottom: 15px;
+                            padding-bottom: 5px;
+                        }
+                        .label {
+                            font-size: 12px;
+                            margin-bottom: 5px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="registration-card">
+                        <div class="form-section">
+                            <h2>Guest Information</h2>
+                            <div>
+                                <span class="label">Name/Company</span>
+                                <div class="form-input">${data.name || '&nbsp;'}</div>
+                            </div>
+                            <div>
+                                <span class="label">Address</span>
+                                <div class="form-input">${data.address || '&nbsp;'}</div>
+                            </div>
+                            <div style="display: flex;">
+                                <div style="flex: 1; margin-right: 10px;">
+                                    <span class="label">City</span>
+                                    <div class="form-input">${data.city || '&nbsp;'}</div>
+                                </div>
+                                <div style="flex: 1;">
+                                    <span class="label">State</span>
+                                    <div class="form-input">${data.state || '&nbsp;'}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="label">ZIP Code</span>
+                                <div class="form-input">${data.zip || '&nbsp;'}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="notice-box">
+                            <div style="font-size: 10px; font-weight: bold; text-align: center;">
+                                NOTICE TO GUESTS<br><br>
+                                Under penalty of law, this guest registration card must be signed by the person registering.<br><br>
+                                Rates subject to change without notice.<br><br>
+                                Checkout time is 11:00 AM.
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h2>Contact & Vehicle</h2>
+                            <div>
+                                <span class="label">Phone</span>
+                                <div class="form-input">${data.phone || '&nbsp;'}</div>
+                            </div>
+                            <div>
+                                <span class="label">Email</span>
+                                <div class="form-input">${data.email || '&nbsp;'}</div>
+                            </div>
+                            <div>
+                                <span class="label">License Plate No.</span>
+                                <div class="form-input">${data.licensePlate || '&nbsp;'}</div>
+                            </div>
+                            <div style="display: flex;">
+                                <div style="flex: 1; margin-right: 10px;">
+                                    <span class="label">Make of Car</span>
+                                    <div class="form-input">${data.carMake || '&nbsp;'}</div>
+                                </div>
+                                <div style="flex: 1;">
+                                    <span class="label">Car State</span>
+                                    <div class="form-input">${data.carState || '&nbsp;'}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="label">No. in Party</span>
+                                <div class="form-input">${data.partySize || '&nbsp;'}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h2>Stay Details</h2>
+                            <div>
+                                <span class="label">Date</span>
+                                <div class="form-input">${data.date || '&nbsp;'}</div>
+                            </div>
+                            <div style="display: flex;">
+                                <div style="flex: 1; margin-right: 10px;">
+                                    <span class="label">Rate ($)</span>
+                                    <div class="form-input">${data.rate || '&nbsp;'}</div>
+                                </div>
+                                <div style="flex: 1;">
+                                    <span class="label">Tax ($)</span>
+                                    <div class="form-input">${data.tax || '&nbsp;'}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="label">Total ($)</span>
+                                <div class="form-input">${data.total || '&nbsp;'}</div>
+                            </div>
+                            <div>
+                                <span class="label">Amount Paid ($)</span>
+                                <div class="form-input">${data.amountPaid || '&nbsp;'}</div>
+                            </div>
+                            <div>
+                                <span class="label">Guest Signature</span>
+                                <div class="form-input" style="height: 40px; margin-top: 10px;">${data.signature || '&nbsp;'}</div>
+                                <div style="border-top: 1px dashed #000; width: 200px; margin-top: -10px;"></div>
+                                <div style="font-size: 10px; margin-top: 2px;">Guest Signature</div>
+                            </div>
+                            <div>
+                                <span class="label">Room Name/No.</span>
+                                <div class="form-input">${data.room || '&nbsp;'}</div>
+                            </div>
+                            <div>
+                                <span class="label">Days Occupied</span>
+                                <div class="days-container">
+                                    <div class="day-box ${data.daysOccupied && data.daysOccupied.includes('sunday') ? 'checked' : ''}">S</div>
+                                    <div class="day-box ${data.daysOccupied && data.daysOccupied.includes('monday') ? 'checked' : ''}">M</div>
+                                    <div class="day-box ${data.daysOccupied && data.daysOccupied.includes('tuesday') ? 'checked' : ''}">T</div>
+                                    <div class="day-box ${data.daysOccupied && data.daysOccupied.includes('wednesday') ? 'checked' : ''}">W</div>
+                                    <div class="day-box ${data.daysOccupied && data.daysOccupied.includes('thursday') ? 'checked' : ''}">T</div>
+                                    <div class="day-box ${data.daysOccupied && data.daysOccupied.includes('friday') ? 'checked' : ''}">F</div>
+                                    <div class="day-box ${data.daysOccupied && data.daysOccupied.includes('saturday') ? 'checked' : ''}">S</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        window.onload = function() {
+                            setTimeout(function() {
+                                window.print();
+                                window.close();
+                            }, 200);
+                        };
+                    <\/script>
+                </body>
+                </html>`
+            )
+        }
+    </script>
+</body>
+</html>
